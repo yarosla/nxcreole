@@ -9,12 +9,7 @@ License: LGPLv3
 
 ## Usage ##
 
-```
-#!sh
-
 $ python setup.py install
 $ python tests/nxcreole_test.py
-
-```
 
 Or install from PyPi and use in your code.
