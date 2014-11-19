@@ -10,6 +10,7 @@ setup(name = 'nxcreole',
       description = 'Wiki Creole 1.0 markup parser (C extension)',
       author = 'Yaroslav Stavnichiy',
       author_email = 'yarosla@gmail.com',
+      url = 'https://bitbucket.org/yarosla/nxcreole',
       keywords = ['wiki', 'creole'],
       license = 'LGPLv3',
       classifiers = [

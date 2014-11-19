@@ -1,15 +1,48 @@
 NxCreole Wiki Parser
 ====================
 
-NxCreole is a parser for Wiki Creole 1.0 syntax (http://www.wikicreole.org/).
+NxCreole is a parser for Wiki Creole 1.0 text markup (http://www.wikicreole.org/).
 
 The parser is written in C and can be used both directly or as Python extension.
+When called from Python it is 10x to 100x times faster than native Python parsers.
 
 License: LGPLv3
 
-## Usage ##
+Usage
+-----
 
-$ python setup.py install
-$ python tests/nxcreole_test.py
+Clone source, then execute:
 
-Or install from PyPi and use in your code.
+ - python setup.py install
+ - python tests/nxcreole_test.py
+
+Or install from PyPi and use in your code:
+
+ - pip install nxcreole
+ - import nxcreole
+ - print nxcreole.render_xhtml(u'**Hello!**')
+
+Easily customizable. You can override all serialization primitives defined in parser.py
+(eg, append_text, append_link, append_table_cell_open, append_paragraph_close,
+and so on), by inheriting from nxcreole.CreoleParser class.
+
+Compliance
+----------
+
+NxCreole supports all Creole 1.0 features with the following extensions:
+
+ - Nowiki blocks and spans {{{...}}} can start and end anywhere (within text, in lists,
+   table cells). If }}} needs to be included into nowiki-block it has to be escaped by ~}}}.
+   If nowiki block has to end with tilde (~), insert newline after tilde; for inline nowiki
+   just put tilde outside nowiki block: nowiki~.
+ - Nowiki is treated as a block if it has newline characters within it. Block nowikis
+   are rendered with < pre > tag, inline nowikis rendered without any additional tags around
+   (monospaced font can be turned on by ##).
+ - Ordered/unordered lists can be intermixed when nesting (eg, #*#).
+ - Support for underlined (__) and monospaced (##) font styles.
+ - Quotes (>), indents (:), and centered paragraphs (!). These can be intermixed with lists (*#).
+ - Unnumbered lists can be done with minus (-) character as well as with (*).
+ - Table cells can span multiple columns (by using multiple pipes in a row: |||).
+ - Double minus (--) surrounded by spaces produces n-dash (–).
+ - Simplified Mediawiki-style multiline tables ({| ... | ... |- ... | ... |}) to allow 
+   structured wiki content within table cells.

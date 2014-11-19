@@ -18,27 +18,32 @@
 import StringIO
 import nxcreole._ext
 
-#def html_escape(s):
-#  if s is None: return ''
-#  return unicode(s).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace('\'', '&#39;')
 
 html_escape=nxcreole._ext.html_escape
 
-def _nowiki_escape(s):
-  if s is None: return ''
-  return unicode(s).replace('~}}}', '}}}')
-
 
 class CreoleParser(object):
+  """
+  Parser interface. Usage:
+
+    parser = CreoleParser(output_file_or_stringio)
+    parser.parse(wiki_text)
+
+  CreoleParser is also a base class for custom serializers.
+  Just subclass it and override required methods.
+  """
 
   def __init__(self, out):
+    """
+    Initialize parser, set output file or StringIO object.
+    """
     self.out=out
 
-  def get_result(self):
-    return self.out.getvalue()
-
-  def parse(self, s):
-    return nxcreole._ext.parse(self, s)
+  def parse(self, text):
+    """
+    Parse provided wiki text. append_* methods will be called to generate output.
+    """
+    return nxcreole._ext.parse(self, text)
 
   def append_text(self, s):
     self.out.write(html_escape(s))
@@ -148,10 +153,10 @@ class CreoleParser(object):
     self.out.write(u'<br/>\n')
 
   def append_nowiki_block(self, s):
-    self.out.write(u'<pre>'+html_escape(_nowiki_escape(s))+u'</pre>\n')
+    self.out.write(u'<pre>'+html_escape(s)+u'</pre>\n')
 
   def append_nowiki_inline(self, s):
-    self.out.write(u'<span class="nowiki">'+html_escape(_nowiki_escape(s))+u'</span>')
+    self.out.write(u'<span class="nowiki">'+html_escape(s)+u'</span>')
 
   def append_image(self, s):
     pair=s.split('|', 1)
@@ -172,7 +177,10 @@ class CreoleParser(object):
 
 
 def render_xhtml(text):
-    out=StringIO.StringIO()
-    parser=CreoleParser(out)
-    parser.parse(text)
-    return out.getvalue()
+  """
+  Shortcut method to process wiki text and return serialized XHTML string.
+  """
+  out=StringIO.StringIO()
+  parser=CreoleParser(out)
+  parser.parse(text)
+  return out.getvalue()
