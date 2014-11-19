@@ -1,0 +1,17 @@
+NxCreole Wiki Parser
+====================
+
+NxCreole is a parser for Wiki Creole 1.0 syntax (http://www.wikicreole.org/).
+
+The parser is written in C and can be used both directly or as Python extension.
+
+License: LGPLv3
+
+### Usage
+
+```sh
+$ python setup.py install
+$ python tests/nxcreole_test.py
+```
+
+Or install from PyPi and use in your code.

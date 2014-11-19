@@ -1,0 +1,7 @@
+^\.idea/
+^build/
+^dist/
+^env/
+^MANIFEST$
+^tests/.*\.html?$
+\.pyc$

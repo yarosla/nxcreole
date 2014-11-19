@@ -1,0 +1,42 @@
+=This is //a test.
+== Subheading ==
+
+! center 1
+!
+! center 2
+
+-hi
+-bye
+
+*hi bob!
+**--hello
+****how do you do
+**
+**bye
+* bye -- bye
+
+# 1
+## 11
+## 12
+### 121
+#### 1211
+
+Links here: [[link1]], http://link2:8080/test?q=%aa%bb&b=123, [[link4|title]].
+
+Images here: {{image1}}, {{image2|IMG
+  2}}
+
+-- Placeholder: <<<ABC>>>
+----
+---- not HR
+
+{{{  **block**
+   of {{{pre~}}}
+}}}
+{{{>>block
+   of {{{pre}}}}}}
+{{{Some inline {{**nowiki**}}}}}
+
+>  This is blockquote.
+>
+> With blank line.

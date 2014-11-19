@@ -1,0 +1,133 @@
+<h1>T4 WikiParser (T4-WP) 1.0.004 stable</h1>
+<p>Release date: <em>2009-12-20</em><br/>
+
+Written by: <em>Yaroslav Stavnichiy</em>, <img src="http://web-tec.info/email.gif" /><br/>
+
+Home page: <em><a href="http://t4-wiki-parser.googlecode.com/">http://t4-wiki-parser.googlecode.com/</a> </em><br/>
+
+<a href="http://www.apache.org/licenses/LICENSE-2.0">Licensed under the Apache License, Version 2.0</a></p>
+<p>Download binary + source <a href="http://t4-wiki-parser.googlecode.com/files/WikiParser_1_0_004.zip">zip-archive</a>.</p>
+<p>Online demo: <a href="http://www.mforum.ru/t4/WikiDemo">http://www.mforum.ru/t4/WikiDemo</a></p>
+<p>Please report errors to author. Comments and suggestions welcome.</p>
+<p>&lt;&lt;&lt;Placeholder:TOC&gt;&gt;&gt;</p>
+<h2>Release Notes</h2>
+<p><code>WikiParser.jar</code> contains Java source files as well as compiled classes.</p>
+<p><code>ys.wikiparser.demo.WikiParserDemo</code> class can be used as example of using
+and integrating WikiParser into your code.</p>
+<p>WikiParser implements <strong><a href="http://www.wikicreole.org/wiki/Creole1.0">Creole 1.0</a></strong>
+wiki format with some minor deviations, which can be easily fixed if required.</p>
+<h3>Deviations from Creole 1.0</h3>
+<ol><li>Nowiki blocks and spans:<ul><li>Nowiki blocks and spans {{{...}}} can start and end anywhere
+(within text, in lists, table cells). If }}} needs to be included
+into nowiki-block it has to be escaped by ~}}}. If nowiki block
+has to end with tilde (~), insert newline after tilde; for inline
+nowiki just put tilde outside nowiki block: <span class="nowiki">nowiki</span>~.</li>
+<li>Nowiki is treated as a block if it has newline characters within it.
+Block nowikis are rendered with &lt;pre&gt; tag, inline nowikis rendered
+without any additional tags around (monospaced font can be turned on by ##).</li></ul>
+</li>
+<li>Mixed lists:<ul><li>When nesting different types of lists T4-WP requires that initial line
+characters signifying lists that shall continue should match.
+E.g., for T4-WP this is correct:
+<pre>* item a
+*# item a.1
+*#* item a.1.a</pre>
+
+But the following construct doesn&#39;t work:
+<pre>* item a
+## item a.1
+*** item a.1.a</pre>
+</li></ul>
+</li>
+<li>Escaping:<ul><li>Tilde only escapes characters that otherwise would be treated as markup.
+If tilde is found in front of other characters it is treated literally: ~example.</li></ul>
+</li>
+<li>Extensions:<ul><li><span class="underline">Underlined</span> and <code>monospaced</code> font styles.</li>
+<li>Quotes (&gt;), indents (:), and centered paragraphs (!). These can be intermixed with lists (*#).</li>
+<li>Unnumbered lists can be done with minus (-) character as well as with (*).</li>
+<li>Table cells can span multiple columns (by using multiple pipes in a row: |||).</li>
+<li>Double minus (--) surrounded by spaces produces &amp;amp;ndash; ( – ).</li>
+<li>Some HTML character entities are supported: &amp;copy; &amp;reg; &amp;trade;
+&amp;mdash; &amp;ndash; &amp;ldquo; &amp;rdquo; &amp;euro; &amp;bull; &amp;middot; &amp;laquo; &amp;raquo; etc.
+(and &amp;amp;nbsp; of&amp;nbsp;course).
+These are defined in <code>ys.wikiparser.Utils</code> class and can be extended.</li>
+<li>&lt;&lt;&lt;TOC&gt;&gt;&gt; macro to generate table of contents based on headings in text</li>
+<li>Headings are given unique generated id&#39;s to be referred from TOC, etc.</li>
+<li>Simplified Mediawiki-style multiline tables ({| ... | ... |- ... | ... |}) to allow structured wiki content within cells.</li></ul>
+</li></ol>
+<h3>Changes since <a href="http://web-tec.info/WikiParser/WikiParser_1_0_b3.zip">1.0 beta3</a></h3>
+<ul><li>new: centered paragraphs</li>
+<li>new: Mediawiki-style multiline tables</li>
+<li>new: table of contents generation</li>
+<li>fixed: paragraph breaks in blockquotes</li>
+<li>fixed: tilde escaping behavior</li>
+<li>other fixes</li></ul>
+<h3>Changes since <a href="http://web-tec.info/WikiParser/WikiParser_1_0_b2.zip">1.0 beta2</a></h3>
+<ul><li>fixed: bug in nested lists algorithm.</li></ul>
+<h3>Changes since <a href="http://web-tec.info/WikiParser/WikiParser_1_0_b1.zip">1.0 beta1</a></h3>
+<ul><li>fixed: unclosed bold/italic text will end at the end of table cells.</li></ul>
+
+<hr/>
+<h2>Demos</h2>
+<p>This file is written to illustrate WikiParser&#39;s syntax.
+You can generate XHTML version of it by using the following command:</p>
+<div class="indent"><pre>java -jar WikiParser.jar WikiParser.txt WikiParser.htm</pre>
+</div>
+<h3>Bold, Italic, Underlined, Monospaced</h3>
+<p>You can make things <strong>bold</strong> or <em>italic</em> or <span class="underline"><strong><em>both + underline</em></strong></span>.</p>
+<p><code><span class="nowiki">Monospaced text **no markup**</span></code> or <strong><code><span class="nowiki">monospaced bold text **no markup**</span></code></strong></p>
+<h3>Links</h3>
+<p>You can use <a href="internal links">internal links</a> (eg. links to your own wikipedia&#39;s tags) or <a href="http://www.wikicreole.org">external links</a>,
+give the link a <a href="internal links">different display text</a>.</p>
+<p>Free links without braces are rendered as well, like <a href="http://www.wikicreole.org/">http://www.wikicreole.org/</a> and <a href="http://www.wikicreole.org/users/~example">http://www.wikicreole.org/users/~example</a>.</p>
+<h3>Horizontal Rule</h3>
+<p>You can use ---- to draw a line to separate the page:</p>
+
+<hr/>
+<h3>Lists, Quotes, Indents</h3>
+<p>Unnumbered lists:</p>
+<ul><li>item a</li>
+<li>item b</li>
+<li><strong>bold item c</strong></li></ul>
+<p>Lists can be numbered or even mixed up:</p>
+<ol><li>item a</li>
+<li>item b<ul><li><strong>bold sub item of b</strong></li>
+<li><span class="underline">underlined sub item of b</span><ol><li>sub-sub-item 1</li>
+<li>sub-sub-item 2</li></ol>
+</li></ul>
+</li></ol>
+<blockquote>Quotes can be mixed with lists.</blockquote>
+<div class="indent">... so do indents.<div class="indent">... at multiple levels</div>
+</div>
+<h3>Nowiki and Escape</h3>
+<p>You can use block nowiki syntax if you would like do stuff like this:</p>
+<pre>Guitar Chord C:
+   {{{   }}}
+||---|---|---|
+||-0-|---|---|
+||---|-0-|---|
+||---|---|-0-|
+||---|---|---|</pre>
+<p>... or inline nowiki: <span class="nowiki">** not bold **</span>.</p>
+<p>Single character escape is done by a tilde: ~</p>
+<p>Normal link: <a href="http://wikicreole.org/">http://wikicreole.org/</a> - now same link, but escaped: http://wikicreole.org/</p>
+<p>Normal asterisks: **not bold**</p>
+<p>A tilde escapes itself: ~<strong>bold</strong>.</p>
+<h3>Tables</h3>
+<p>Tables are done like this:</p>
+<table><tr><th>header1</th><th colspan="2">headerl2</th></tr><tr><td>col1</td><td>col2</td><td>col3</td></tr><tr><td>can have ~</td><td>in a cell</td><td colspan="2">colspan=2</td></tr><tr><td colspan="3">colspan=3</td></tr></table><h3>MediaWiki-Style Tables</h3>
+<table><tr><td><ul><li>Can have lists</li>
+<li>within cells</li></ul>
+</td><td><div class="center">Can have<br/>
+centered<br/>
+paragraphs</div>
+</td></tr><tr><td><pre>  As well as
+  multiline
+  no-wiki blocks
+  </pre>
+</td><td><table><tr><td>And even nested </td><td>mini-tables </td></tr></table></td></tr><tr><td><table><tr><td><p>This is nested</p>
+</td></tr><tr><td><p>MediaWiki table</p>
+</td></tr></table></td><td><h4>Heading inside table cell</h4>
+</td></tr></table><h3>Images</h3>
+<p>Creole cheat sheet image:<br/>
+ <img src="http://www.wikicreole.org/attach/CheatSheet/creole_cheat_sheet.png" alt="WikiCreole Cheat Sheet" /></p>
