@@ -467,7 +467,7 @@ static int parse_block(nxcreole_parse_ctx* ctx) {
         while (ctx->ptr[heading_level]==L'=') heading_level++;
         ctx->ptr+=heading_level;
         SKIP_WS(ctx->ptr);
-        if (!ctx->ptr[heading_level]) return 0; // eot
+        if (!*ctx->ptr) return 0; // eot
         wchar_t h=L'0'+heading_level;
         ctx->append1(ctx, FN_APPEND_HEADING_OPEN, &h, 1);
         parse_item(ctx, ctx->ptr, &ctx->ptr, 0, ITEM_CTX_HEADER);
